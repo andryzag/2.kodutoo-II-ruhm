@@ -1,5 +1,5 @@
 <?php 
-	
+	///https://github.com/dbushell/Pikaday
 	require("functions.php");
 	
 	//kui ei ole kasutaja id'd
@@ -10,6 +10,10 @@
 		exit();
 	}
 	
+	
+	// MUUTUJAD
+	$newTask = "";
+	$newTaskError = "";
 	
 	//kui on ?logout aadressireal siis login välja
 	if (isset($_GET["logout"])) {
@@ -43,7 +47,18 @@
 	//echo "<pre>";
 	//var_dump($taskData);
 	//echo "</pre>";
+	
+///<link rel="stylesheet" href="site.css">
+///<link rel="stylesheet" href="theme.css">
+///<link rel="stylesheet" href="triangle.css">
+///järgmisele reale kui soovin teisiti
 ?>
+<head>
+<link rel="stylesheet" href="pikaday.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="triangle.css">
+</head>
 <h1>Task page</h1>
 <?=$msg;?>
 <p>
@@ -56,11 +71,11 @@
 <form method="POST">
 	
 	<label>Task</label><br>
-	<input name="task" type="text">
+	<input name="task" type="text"> 
 	<br><br>
 	
 	<label>Deadline</label><br>
-	<input name="date" type="text">
+	<input name="date" type="date">
 	<br><br>
 	
 	<input type="submit" value="Save">
@@ -107,3 +122,7 @@
 <br>
 <br>
 <br>
+<script src="pikaday.js"></script>
+<script>
+    var picker = new Pikaday({ field: document.getElementById('datepicker') });
+</script>

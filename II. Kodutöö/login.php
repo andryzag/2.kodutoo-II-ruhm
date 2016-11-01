@@ -49,12 +49,53 @@
 	
 	// MUUTUJAD
 	$loginEmailError = "";
+	$loginEmail = "";
 	$loginPasswordError = "";
+	$loginPassword = "";
 	$signupEmailError = "";
 	$signupPasswordError = "";
 	$signupEmail = "";
 	$signupGender = "";
 	
+		// on üldse olemas selline muutja
+	if( isset( $_POST["loginEmail"] ) ){
+		
+		//jah on olemas
+		//kas on tühi
+		if( empty( $_POST["loginEmail"] ) ){
+			
+			$loginEmailError = "This area is required";
+			
+		} else {
+			
+			// email olemas 
+			$loginEmail = $_POST["loginEmail"];
+			
+		}
+		
+	} 
+	
+	if( isset( $_POST["loginPassword"] ) ){
+		
+		if( empty( $_POST["loginPassword"] ) ){
+			
+			$loginPasswordError = "Password is required";
+			
+		} else {
+			
+			// siia jõuan siis kui parool oli olemas - isset
+			// parool ei olnud tühi -empty
+			
+			// kas parooli pikkus on väiksem kui 8 
+			if ( strlen($_POST["loginPassword"]) < 8 ) {
+				
+				$loginPasswordError = "Password has to be at least 8 characters";
+			
+			}
+			
+		}
+		
+	}
 
 	// on üldse olemas selline muutja
 	if( isset( $_POST["signupEmail"] ) ){
@@ -141,6 +182,12 @@
 	
 
 ?>
+<head>
+<link rel="stylesheet" href="pikaday.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="triangle.css">
+</head>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,10 +199,9 @@
 	<form method="POST">
 		<p style="color:red;"><?=$error;?></p>
 	
-		<input type="text" name="loginEmail" placeholder="E-Mail"> 
+		<input type="text" name="loginEmail" placeholder="E-Mail"  value="<?=$loginEmail;?>"> <?php echo $loginEmailError; ?>
 		<br>
-		
-		<input type="password" name="loginPassword" placeholder="Parool"> 
+		<input type="password" name="loginPassword" placeholder="Password"> <?php echo $loginPasswordError; ?>
 		<br><br>
 		
 		<input type="submit" value="Login">
@@ -167,9 +213,9 @@
 	<h1>Sign-Up</h1>
 	<form method="POST">
 		
-		<input type="text" name="signupEmail" placeholder="E-Mail"> <?php echo $signupEmailError; ?>
+		<input name="signupEmail" type="text" placeholder="E-Mail" value="<?=$signupEmail;?>"> <?=$signupEmailError;?>
 		<br>
-		<input type="password" name="signupPassword" placeholder="Parool"> <?php echo $signupPasswordError; ?>
+		<input type="password" name="signupPassword" placeholder="Password"> <?php echo $signupPasswordError; ?>
 		<br><br>
 		
 		<input type="submit" value="Sign-Up">
